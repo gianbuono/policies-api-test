@@ -6,6 +6,7 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var policiesRouter = require('./routes/policies');
 
 // Set up mongoose connection
 const mongoose = require('mongoose');
@@ -17,13 +18,20 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var seeder = require('./seeder')
 var app = express();
 
+function errorHandler(err, req, res, next) {
+    res.status(500);
+    res.render('error', { error: err });
+}
+
 app.use(logger('dev'));
 app.use(cors());
+app.use(errorHandler);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/policies', policiesRouter);
 
 seeder();
 
