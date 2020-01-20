@@ -6,6 +6,7 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var policiesRouter = require('./routes/policies');
 
 // Set up mongoose connection
 const mongoose = require('mongoose');
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/policies', policiesRouter);
 
 seeder();
 
