@@ -9,12 +9,12 @@ module.exports = async (req, res, next) => {
             res.status(401).json({ error: 'No auth provided' });
         }
         else {
-            const user = UserModel.findOne({name: req.headers.auth})
-            if(!user) {
-                res.status(400).json({ error: 'User doesn\'t exists'});
-            } else {
-                req.userRole = user.role
+            const user = await UserModel.findOne({ name: req.headers.auth })
+            if (!user) {
+                res.status(400).json({ error: 'User doesn\'t exists' });
             }
+            req.userRole = user.role
+
             next();
         }
     } catch {
