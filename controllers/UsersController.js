@@ -1,8 +1,17 @@
 const UserModel = require('../models/User');
 
 exports.get = async function (req, res) {
-    const users = await UserModel.find()
 
+    var filters = {}
+
+    var name = req.query.name;
+    var id = req.query.id;
+
+    if(name) filters.name = name;
+    if(id) filters.id = id;
+    console.log(filters)
+    const users = await UserModel.find({...filters})
+    
     res.status(200).json(users);
 };
 
