@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cors = require('cors')
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -13,7 +14,7 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+var seeder = require('./seeder')
 var app = express();
 
 app.use(logger('dev'));
@@ -23,5 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+seeder();
 
 module.exports = app;
