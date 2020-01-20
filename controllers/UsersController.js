@@ -9,7 +9,6 @@ exports.get = async function (req, res) {
 
     if(name) filters.name = name;
     if(id) filters.id = id;
-    console.log(filters)
     const users = await UserModel.find({...filters})
     
     res.status(200).json(users);
